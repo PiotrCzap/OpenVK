@@ -2,6 +2,20 @@
 #include "openvk.h"
 
 // ===========================================================================================
+// CAMERA
+// ===========================================================================================
+
+void openvk_Draw_Camera2D(const float position_x, const float position_y, const float rotation, const float zoom, const Vector2 target)
+{
+    Camera2D camera;
+    Vector2 offset = {position_x, position_y};
+    camera.offset = offset;
+    camera.rotation = rotation;
+    camera.target = target;
+    camera.zoom = zoom;
+}
+
+// ===========================================================================================
 // DRAWING
 // ===========================================================================================
 
@@ -40,9 +54,8 @@ void openvk_ShowFPS_In_Console(const int show)
 {
     if (show)
     {
-        printf("FPS: \n", GetFPS());
+        printf("FPS: %d\n", GetFPS());
     }
-    
 }
 
 void openvk_SetFPS(int FPS)
@@ -85,34 +98,4 @@ void openvk_CloseWindow(void)
     return CloseWindow();
 }
 
-int main(void)
-{
-    openvk_CreateWindow(800, 600, "OpenVK");
-    Texture2D tex = LoadTexture("src/poop.png");
-    openvk_SetFPS(120);
 
-    while (!openvk_WindowIsRunning())
-    {
-        openvk_ShowFPS_In_Console(1);
-
-        openvk_Render();
-        
-        Transform2D rect = {
-            .position = {100.0f, 100.0f},
-            .origin = {0.0f, 0.0f},
-            .rotation = {0.0f, 0.0f},
-            .size = {50.0f, 300.0f}
-        };
-
-        openvk_Draw_Rectangle2D(rect, WHITE);
-        openvk_Draw_Circle2D(300.0f, 300.0f, 50.0f, RED);
-        openvk_Draw_Ellipse2D(500.0f, 500.0f, 40.0f, 70.0f, BLUE);
-        openvk_Draw_Texture(rect, &tex, WHITE);
-
-        openvk_EndRender();
-    }
-    UnloadTexture(tex);
-    openvk_CloseWindow();
-
-    return 0;
-}
