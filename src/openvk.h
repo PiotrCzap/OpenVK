@@ -16,7 +16,10 @@ typedef struct
 // CAMERA
 // ===========================================================================================
 
-void openvk_Draw_Camera2D(const float position_x, const float position_y, const float rotation, const float zoom, const Vector2 target);
+void openvk_Draw_Camera2D(Camera2D *camera, const float position_x, const float position_y, const float rotation, const float zoom, const Vector2 target);
+void openvk_Start_Camera2D(const Camera2D camera);
+void openvk_End_Camera2D(void);
+
 
 // ===========================================================================================
 // DRAWING

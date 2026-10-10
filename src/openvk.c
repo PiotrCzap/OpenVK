@@ -5,14 +5,22 @@
 // CAMERA
 // ===========================================================================================
 
-void openvk_Draw_Camera2D(const float position_x, const float position_y, const float rotation, const float zoom, const Vector2 target)
+void openvk_Draw_Camera2D(Camera2D *camera, const float position_x, const float position_y, const float rotation, const float zoom, const Vector2 target)
 {
-    Camera2D camera;
-    Vector2 offset = {position_x, position_y};
-    camera.offset = offset;
-    camera.rotation = rotation;
-    camera.target = target;
-    camera.zoom = zoom;
+    camera->offset = (Vector2){ position_x, position_y };
+    camera->rotation = rotation;
+    camera->target = target;
+    camera->zoom = zoom;
+}
+
+void openvk_Start_Camera2D(const Camera2D camera)
+{
+    BeginMode2D(camera);
+}
+
+void openvk_End_Camera2D(void)
+{
+    EndMode2D();
 }
 
 // ===========================================================================================
@@ -45,6 +53,12 @@ void openvk_Draw_Texture(const Transform2D transform, const Texture2D *texture, 
     
     
 }
+
+// ===========================================================================================
+// USER INTERFACE
+// ===========================================================================================
+
+
 
 // ===========================================================================================
 // CONSOLE & DEBUG
@@ -90,7 +104,7 @@ void openvk_CreateWindow(const int WINDOW_SIZE_X, const int WINDOW_SIZE_Y, const
 
 int openvk_WindowIsRunning(void)
 {
-    return WindowShouldClose();
+    return !WindowShouldClose();
 }
 
 void openvk_CloseWindow(void)
